@@ -1,40 +1,4 @@
-# A personal fork of *Nails*
-Intended for tweaking into a level generator for multiple engine usage.
-
-> Original documentation below.
-
-## Summary ##
-
-Nails is intended to be a suite of tools for quickly blocking out maps on Valve's Source Engine. 
-
-The first iteration of Nails is a random map generator that creates layouts and saves them in Source Engine VMF format. The concept of the generator was inspired by Mapgen and DungeonMaker.
-http://www.gridsagegames.com/blog/2014/06/mapgen-tunneling-algorithm/ 
-http://dungeonmaker.sourceforge.net/DM2_Manual/manual3.html
-
-## How To Use ##
-
-### Usage of NailsCmd.exe: ###
-
-  -f, --file        XML file containing agent configuration.
-
-  -o, --output      Filename to write out to.
-
-  -t, --lifetime    Number of steps in the simulation.
-
-### Writing an agent XML file: ### 
-
-The generator works by simulating "artificial life forms" that carve out layouts by following randomly specified rules. The starting parameters for the artificial life simulation are configurable by an XML file, 'alife.xml'. The configuration can have any number of starting agents represented by the <BaseAgent/> tag in the XML.
-
-Some agents have 'styles' which refer to sets of instances defined in the Nails folder. By default, there is one style called dev, located in Nails/dev.
-
-Types of agents:
-* Tunneler: Tunnelers 'dig', carving out empty tunnels or corridors by applying their given style. By default, they move in a straight line. For every cube the roomer marks as its style, there are set probabilities that it will reproduce a tunneler, produce a roomer, ascend or descend by one cube, or turn 90 degrees in either direction.
-* Roomer: Roomers 'explode', creating rooms by marking large numbers of adjacent cubes as their given style in a rectangular pattern.
-
-The following XML demonstrates a random map configuration that has one tunneler and one roomer: It will generate a room and then a random path leading North from the room.
-
-```xml
-  <!-- Tunnelers dig corridors or tunnels. -->
+<!-- Tunnelers dig corridors or tunnels. -->
   <BaseAgent xsi:type="Tunneler">
 	<!-- Starting X, Y, and Z coordinates for this Tunneler -->
 	<X>0</X>
@@ -114,12 +78,3 @@ The following XML demonstrates a random map configuration that has one tunneler 
 	  -->
     <Style>dev</Style>
   </BaseAgent>
-```
-
-
-## Dependencies ##
-
-* VMFParser (https://github.com/BenVlodgi/VMFParser)
-* CommandLineParser (https://github.com/commandlineparser/commandline)
-* log4net (http://logging.apache.org/log4net/)
-* Newtonsoft.Json (https://www.newtonsoft.com/json)
